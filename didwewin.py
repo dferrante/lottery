@@ -5,18 +5,13 @@ to easily make python lists of your lottery numbers to paste in, run like so:
 python didwewin.py numbers
 """
 
-import sys, random
-
-work = False #set to True if not using work pool numbers
-work_pool_size = 10
+import sys
 
 #put lottery numbers here, use numbers cmd line arg to fill with 6-tuple integer lists
-our_played_numbers = []
-work_played_numbers = []
+my_played_numbers = [[1, 2, 3, 4, 5, 6], [1, 4, 5, 7, 8, 6]]
+work_played_numbers = [[1, 2, 3, 4, 5, 6], [1, 4, 5, 7, 8, 6]]
+work_pool_size = 10 #pool size
 
-
-played_numbers = our_played_numbers if not work else work_played_numbers
-pool_size = 1 if not work else work_pool_size
 
 megamillions_winnings = {
     (0, True): 2,
@@ -55,7 +50,7 @@ def enterline():
     print line
     return line
 
-if __name__ == '__main__':
+def run(played_numbers, pool_size):
     if sys.argv[1] == 'numbers':
         print "enter numbers for each line. when finished, enter any non-number"
         l = []
@@ -101,3 +96,9 @@ if __name__ == '__main__':
     if pool_size > 1:
         print 'Per Person Total (pretax): $%s' % (grandtotal/float(pool_size))
 
+
+if __name__ == '__main__':
+    run(my_played_numbers, 1)
+    if work_played_numbers:
+        print '\nWORK POOL:'
+        run(work_played_numbers, work_pool_size)
